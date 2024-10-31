@@ -39,6 +39,7 @@
     border: 1px solid #f2f2f2;
     padding: 22.5px 16px;
     width: 100%;
+    line-height: 19px;
   }
 
   i {
@@ -62,6 +63,7 @@
   transition: background-color 0.3s;
   font-size: 16px;
   margin: 0;
+  line-height: 19px;
 
   &:hover {
     background-color: darken(#fdbc11, 10%);

@@ -27,3 +27,11 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+input {
+  font-family: inherit;
+}
+
+button {
+  font-family: inherit;
+}
