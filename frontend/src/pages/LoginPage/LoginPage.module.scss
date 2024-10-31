@@ -39,6 +39,7 @@
     border: 1px solid #f2f2f2;
     padding: 22.5px 16px;
     width: 100%;
+    font-size: 16px;
     line-height: 19px;
   }
 
@@ -54,6 +55,7 @@
 
 .loginButton {
   width: 100%;
+  margin: 0;
   padding: 22.5px 0;
   background-color: #fdbc11;
   color: black;
@@ -62,7 +64,6 @@
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 16px;
-  margin: 0;
   line-height: 19px;
 
   &:hover {
