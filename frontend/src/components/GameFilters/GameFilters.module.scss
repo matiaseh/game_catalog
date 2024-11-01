@@ -24,12 +24,12 @@
 .filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 40px;
+  gap: 10px 20px;
 }
 
 .filter {
   border: none;
-  padding: 5px 0px;
+  padding: 5px 10px;
   border-radius: 4px;
   background-color: transparent;
   cursor: pointer;
@@ -37,7 +37,5 @@
 }
 
 .selected {
-  padding: 5px 10px;
-
   background-color: #fdbc11;
 }
