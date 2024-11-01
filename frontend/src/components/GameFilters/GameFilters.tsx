@@ -57,22 +57,9 @@ const GameFilters = ({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMobile = useIsMobile();
 
-  const renderSearchInput = () => {
-    return (
-      <InputField
-        type="text"
-        placeholder="Search"
-        onChange={(e) => onSearchChange(e.target.value)}
-        value={searchTerm}
-        iconName="fa-solid fa-magnifying-glass"
-      />
-    );
-  };
-
   const renderFilters = () => {
     return (
-      <div className={styles.gameFilters}>
-        {!isMobile && renderSearchInput()}
+      <div className={styles.scrollableContent}>
         <FilterSelector
           title="Providers"
           options={providers}
@@ -101,7 +88,7 @@ const GameFilters = ({
             />
           </div>
         )}
-        <div className={styles.footerContainer}>
+        <div className={styles.gamesAmount}>
           <p className={filterStyles.filtersTitle}>
             Games amount {gamesAmount}
           </p>
@@ -114,25 +101,25 @@ const GameFilters = ({
   };
 
   return (
-    <>
-      {isMobile ? (
-        <div className={styles.mobileFilterContainer}>
-          <div className={styles.mobileFilterContent}>
-            {renderSearchInput()}
-            {isDrawerOpen && renderFilters()}
-            <button
-              className={styles.drawerToggleButton}
-              onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-            >
-              <i className="fa-solid fa-bars" />
-              {isDrawerOpen ? 'Close Filters' : 'Open Filters'}
-            </button>
-          </div>
-        </div>
-      ) : (
-        renderFilters()
+    <div className={styles.gameFilters}>
+      <InputField
+        type="text"
+        placeholder="Search"
+        onChange={(e) => onSearchChange(e.target.value)}
+        value={searchTerm}
+        iconName="fa-solid fa-magnifying-glass"
+      />
+      {isMobile ? isDrawerOpen && renderFilters() : renderFilters()}
+      {isMobile && (
+        <button
+          className={styles.drawerToggleButton}
+          onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+        >
+          <i className="fa-solid fa-bars" />
+          {isDrawerOpen ? 'Close Filters' : 'Open Filters'}
+        </button>
       )}
-    </>
+    </div>
   );
 };
 
