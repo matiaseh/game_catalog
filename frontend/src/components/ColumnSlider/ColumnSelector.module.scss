@@ -1,0 +1,63 @@
+.sliderContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.bubbles {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 1;
+}
+
+.bubble {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.bubble:hover {
+  background-color: #e0e0e0;
+}
+
+.active {
+  background-color: #fdbc11;
+}
+
+.fillBackground {
+  position: absolute;
+  height: 15px;
+  background-color: #f2f2f2;
+  border-radius: 50px;
+  width: 100%;
+}
+
+.fill {
+  position: absolute;
+  height: 15px;
+  background-color: #fdbc11;
+  border-radius: 50px;
+  transition:
+    width 0.3s ease,
+    left 0.3s ease;
+}
+
+.fill2 {
+  width: 0%;
+}
+
+.fill3 {
+  width: 50%;
+}
+
+.fill4 {
+  width: 100%;
+}

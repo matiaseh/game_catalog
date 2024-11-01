@@ -1,4 +1,5 @@
 import { Group, Provider } from '../../types/Game';
+import ColumnSelector from '../ColumnSlider/ColumnSelector';
 import InputField from '../InputField/InputField';
 import styles from './GameFilters.module.scss';
 
@@ -107,19 +108,11 @@ const GameFilters = ({
       </div>
       <div className={styles.filtersContainer}>
         <p className={styles.filtersTitle}>Columns</p>
-        <div className={styles.filters}>
-          {columnOptions.map((option) => (
-            <button
-              key={option}
-              className={`${styles.filter} ${
-                selectedColumns === option ? styles.selected : ''
-              }`}
-              onClick={() => onColumnSelect(option)}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
+        <ColumnSelector
+          options={columnOptions}
+          value={selectedColumns}
+          handleChange={(option) => onColumnSelect(option)}
+        />
       </div>
       <div className={styles.footerContainer}>
         <p className={styles.filtersTitle}>Games amount {gamesAmount}</p>
