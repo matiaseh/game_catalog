@@ -19,11 +19,12 @@
   .gameFilters {
     position: fixed;
     top: 106px;
-    left: 24px;
-    right: 24px;
+    left: calc(24px - 1px); // Adjust for the border
+    right: calc(24px - 1px); // Adjust for the border
     display: flex;
     align-items: center;
-    max-height: calc(100vh - 232px);
+    box-sizing: border-box;
+    max-height: calc(100vh - 106px - 60px);
   }
 }
 
