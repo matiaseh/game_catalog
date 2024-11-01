@@ -7,7 +7,7 @@ export interface Game {
   date: string;
 }
 
-interface Provider {
+export interface Provider {
   id: number;
   name: string;
   logo: string;

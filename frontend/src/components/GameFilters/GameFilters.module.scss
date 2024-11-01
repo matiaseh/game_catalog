@@ -1,3 +1,43 @@
 .gameFilters {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 412px;
+}
+
+.providersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  p {
+    margin: 0px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: left;
+    color: #808080;
+  }
+}
+
+.providers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 40px;
+}
+
+.providerButton {
+  border: none;
+  padding: 5px 0px;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.selected {
+  padding: 5px 10px;
+
+  background-color: #fdbc11;
 }
