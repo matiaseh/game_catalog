@@ -2,7 +2,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
-  flex: 2;
+  flex-grow: 1;
+  overflow-y: auto;
+  width: 100%;
 }
 
 .gameImage {

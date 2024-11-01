@@ -1,17 +1,16 @@
 .playerViewContainer {
   width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .playerViewContent {
   padding: 75px 82px;
   display: flex;
+  flex-grow: 1;
+  overflow: auto;
+  height: calc(100vh - 70px);
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 20px;
-}
-
-.gameFilters {
-  flex: 1;
-  min-width: 200px;
-  margin-right: 20px;
 }
