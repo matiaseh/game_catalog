@@ -1,0 +1,33 @@
+.filtersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filtersTitle {
+  margin: 0px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  color: #808080;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.filter {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.selected {
+  background-color: #fdbc11;
+}

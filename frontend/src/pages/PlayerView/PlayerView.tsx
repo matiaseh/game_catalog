@@ -50,7 +50,7 @@ const PlayerView = () => {
   const [selectedProviderIds, setSelectedProviderIds] = useState<number[]>([]);
   const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([]);
 
-  const [selectedSort, setSelectedSort] = useState<string>('');
+  const [selectedSortId, setSelectedSortId] = useState<number>();
   const [selectedColumns, setSelectedColumns] = useState(3);
 
   useEffect(() => {
@@ -79,14 +79,6 @@ const PlayerView = () => {
     );
   };
 
-  const handleSortSelect = (sort: string) => {
-    if (sort === selectedSort) {
-      setSelectedSort('');
-    } else {
-      setSelectedSort(sort);
-    }
-  };
-
   const handleColumnSelect = (columns: number) => {
     setSelectedColumns(columns);
   };
@@ -95,16 +87,24 @@ const PlayerView = () => {
     setSelectedProviderIds([]);
     setSelectedGroupIds([]);
     setSelectedColumns(3);
-    setSelectedSort('');
+    setSelectedSortId(undefined);
   };
 
-  const sortGames = (games: Game[], sortType: string) => {
+  const handleSortSelect = (sortId: number) => {
+    if (sortId === selectedSortId) {
+      setSelectedSortId(undefined);
+    } else {
+      setSelectedSortId(sortId);
+    }
+  };
+
+  const sortGames = (games: Game[], sortType?: number) => {
     switch (sortType) {
-      case 'asc':
+      case 1:
         return [...games].sort((a, b) => a.name.localeCompare(b.name));
-      case 'desc':
+      case 2:
         return [...games].sort((a, b) => b.name.localeCompare(a.name));
-      case 'newest':
+      case 3:
         return [...games].sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
         );
@@ -133,7 +133,7 @@ const PlayerView = () => {
       return matchesProvider && matchesGroup && matchesSearchTerm;
     }) || [];
 
-  const gamesToDisplay = sortGames(filteredGames, selectedSort);
+  const gamesToDisplay = sortGames(filteredGames, selectedSortId);
 
   const renderGamesList = () => {
     if (isLoading) return <div>Loading</div>;
@@ -161,7 +161,7 @@ const PlayerView = () => {
           groups={data?.groups}
           selectedGroupIds={selectedGroupIds}
           onGroupSelect={handleGroupSelect}
-          selectedSort={selectedSort}
+          selectedSortId={selectedSortId}
           onSortSelect={handleSortSelect}
           selectedColumns={selectedColumns}
           onColumnSelect={handleColumnSelect}
