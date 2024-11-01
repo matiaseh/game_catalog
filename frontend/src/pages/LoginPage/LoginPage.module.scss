@@ -1,6 +1,6 @@
-* {
-  box-sizing: border-box;
-}
+@use 'sass:color';
+
+$buttonColor: #fdbc11;
 
 .loginContainer {
   display: flex;
@@ -8,9 +8,9 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
-  min-height: 100vh;
-  width: 100%;
   margin: 0 24px;
+  width: 100%;
+
   max-width: calc(100% - 48px);
 
   @media (min-width: 429px) {
@@ -36,11 +36,12 @@
   width: 100%;
 
   input {
-    border: 1px solid #f2f2f2;
     padding: 22.5px 16px;
     width: 100%;
     font-size: 16px;
     line-height: 19px;
+    border: 1px solid #f2f2f2;
+    box-sizing: border-box;
   }
 
   i {
@@ -57,17 +58,17 @@
   width: 100%;
   margin: 0;
   padding: 22.5px 0;
-  background-color: #fdbc11;
+  background-color: $buttonColor;
   color: black;
+  font-size: 16px;
+  line-height: 19px;
   border: none;
   border-radius: 0;
   cursor: pointer;
   transition: background-color 0.3s;
-  font-size: 16px;
-  line-height: 19px;
 
   &:hover {
-    background-color: darken(#fdbc11, 10%);
+    background-color: color.adjust($buttonColor, $lightness: -10%);
   }
 }
 
