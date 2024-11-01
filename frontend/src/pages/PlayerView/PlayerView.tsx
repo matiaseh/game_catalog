@@ -91,6 +91,13 @@ const PlayerView = () => {
     setSelectedColumns(columns);
   };
 
+  const handleResetFilters = () => {
+    setSelectedProviderIds([]);
+    setSelectedGroupIds([]);
+    setSelectedColumns(3);
+    setSelectedSort('');
+  };
+
   const sortGames = (games: Game[], sortType: string) => {
     switch (sortType) {
       case 'asc':
@@ -145,6 +152,7 @@ const PlayerView = () => {
       <div className={styles.playerViewContent}>
         {renderGamesList()}
         <GameFilters
+          gamesAmount={gamesToDisplay.length}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
           providers={data?.providers}
@@ -157,6 +165,7 @@ const PlayerView = () => {
           onSortSelect={handleSortSelect}
           selectedColumns={selectedColumns}
           onColumnSelect={handleColumnSelect}
+          onResetFilters={handleResetFilters}
         />
       </div>
     </div>

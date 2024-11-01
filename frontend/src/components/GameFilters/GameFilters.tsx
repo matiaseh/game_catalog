@@ -16,6 +16,7 @@ const sorters: Sort[] = [
 const columnOptions = [2, 3, 4];
 
 interface GameFiltersProps {
+  gamesAmount: number;
   searchTerm: string;
   onSearchChange: (search: string) => void;
   providers?: Provider[];
@@ -28,9 +29,11 @@ interface GameFiltersProps {
   onSortSelect: (sort: string) => void;
   selectedColumns: number;
   onColumnSelect: (option: number) => void;
+  onResetFilters: () => void;
 }
 
 const GameFilters = ({
+  gamesAmount,
   searchTerm,
   onSearchChange,
   providers,
@@ -43,6 +46,7 @@ const GameFilters = ({
   onSortSelect,
   selectedColumns,
   onColumnSelect,
+  onResetFilters,
 }: GameFiltersProps) => {
   return (
     <div className={styles.gameFilters}>
@@ -116,6 +120,12 @@ const GameFilters = ({
             </button>
           ))}
         </div>
+      </div>
+      <div className={styles.footerContainer}>
+        <p className={styles.filtersTitle}>Games amount {gamesAmount}</p>
+        <button className={styles.resetButton} onClick={onResetFilters}>
+          Reset
+        </button>
       </div>
     </div>
   );
