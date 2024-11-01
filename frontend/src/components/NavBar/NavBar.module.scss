@@ -4,8 +4,10 @@
   align-items: center;
   padding: 0px 82px;
   box-shadow: 0px -2px 18px 0px #8080801a;
+}
 
-  &.mobile {
+@media (max-width: 428px) {
+  .navBar {
     padding: 12px 24px 0px;
     box-shadow: none;
   }

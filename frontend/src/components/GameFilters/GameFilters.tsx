@@ -71,9 +71,7 @@ const GameFilters = ({
 
   const renderFilters = () => {
     return (
-      <div
-        className={`${styles.gameFilters} ${isMobile ? '' : styles.gameFiltersDesktop}`}
-      >
+      <div className={styles.gameFilters}>
         {!isMobile && renderSearchInput()}
         <FilterSelector
           title="Providers"

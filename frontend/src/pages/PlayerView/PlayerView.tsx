@@ -151,9 +151,7 @@ const PlayerView = () => {
   return (
     <div className={styles.playerViewContainer}>
       <NavBar />
-      <div
-        className={`${styles.playerViewContent} ${isMobile ? styles.mobile : ''}`}
-      >
+      <div className={styles.playerViewContent}>
         <GamesList games={gamesToDisplay} selectedColumns={selectedColumns} />
         <GameFilters
           providers={data.providers}
