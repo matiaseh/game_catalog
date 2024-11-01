@@ -49,7 +49,7 @@ const GameFilters = ({
         </div>
       </div>
       <div className={styles.filtersContainer}>
-        <p className={styles.filtersTitle}>Groups</p>
+        <p className={styles.filtersTitle}>Game groups</p>
         <div className={styles.filters}>
           {groups?.map((group) => (
             <button
