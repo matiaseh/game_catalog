@@ -3,14 +3,28 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .playerViewContent {
-  padding: 75px 82px;
   display: flex;
-  flex-grow: 1;
   overflow: auto;
-  height: calc(100vh - 70px);
   justify-content: space-between;
   gap: 20px;
+  padding: 75px 82px;
+
+  &.mobile {
+    padding: 228px 24px 0px;
+  }
+}
+
+.filtersDrawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  padding: 16px;
 }

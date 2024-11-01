@@ -6,6 +6,7 @@ import styles from './PlayerView.module.scss';
 import NavBar from '../../components/NavBar/NavBar';
 import GameFilters from '../../components/GameFilters/GameFilters';
 import { useEffect, useState } from 'react';
+import useIsMobile from '../../hooks/useIsMobile';
 
 // Check if a game matches the selected providers
 const isGameFromSelectedProvider = (game: Game, providerIds: number[]) => {
@@ -43,6 +44,7 @@ const PlayerView = () => {
     queryKey: ['games'],
     queryFn: fetchGamesData,
   });
+  const isMobile = useIsMobile();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
@@ -50,7 +52,7 @@ const PlayerView = () => {
   const [selectedProviderIds, setSelectedProviderIds] = useState<number[]>([]);
   const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([]);
   const [selectedSortId, setSelectedSortId] = useState<number>(0);
-  const [selectedColumns, setSelectedColumns] = useState(3);
+  const [selectedColumns, setSelectedColumns] = useState(isMobile ? 2 : 3);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -61,6 +63,14 @@ const PlayerView = () => {
       clearTimeout(timer);
     };
   }, [searchTerm]);
+
+  useEffect(() => {
+    if (isMobile) {
+      setSelectedColumns(2);
+    } else {
+      setSelectedColumns(3);
+    }
+  }, [isMobile]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading games</div>;
@@ -141,7 +151,9 @@ const PlayerView = () => {
   return (
     <div className={styles.playerViewContainer}>
       <NavBar />
-      <div className={styles.playerViewContent}>
+      <div
+        className={`${styles.playerViewContent} ${isMobile ? styles.mobile : ''}`}
+      >
         <GamesList games={gamesToDisplay} selectedColumns={selectedColumns} />
         <GameFilters
           providers={data.providers}
