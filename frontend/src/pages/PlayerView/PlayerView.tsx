@@ -96,6 +96,12 @@ const PlayerView = () => {
     }
   };
 
+  const handleResetFilters = () => {
+    setSelectedProviderIds([]);
+    setSelectedGroupIds([]);
+    setSelectedSortId(0);
+  };
+
   const sortGames = (games: Game[], sortType?: number) => {
     switch (sortType) {
       case 1:
@@ -110,12 +116,6 @@ const PlayerView = () => {
       default:
         return games;
     }
-  };
-
-  const handleResetFilters = () => {
-    setSelectedProviderIds([]);
-    setSelectedGroupIds([]);
-    setSelectedSortId(0);
   };
 
   // Filter games based on selected providers, groups and search term
