@@ -13,6 +13,8 @@ const sorters: Sort[] = [
   { type: 'newest', title: 'Newest' },
 ];
 
+const columnOptions = [2, 3, 4];
+
 interface GameFiltersProps {
   searchTerm: string;
   onSearchChange: (search: string) => void;
@@ -24,6 +26,8 @@ interface GameFiltersProps {
   onGroupSelect: (groupId: number) => void;
   selectedSort: string;
   onSortSelect: (sort: string) => void;
+  selectedColumns: number;
+  onColumnSelect: (option: number) => void;
 }
 
 const GameFilters = ({
@@ -37,6 +41,8 @@ const GameFilters = ({
   onGroupSelect,
   selectedSort,
   onSortSelect,
+  selectedColumns,
+  onColumnSelect,
 }: GameFiltersProps) => {
   return (
     <div className={styles.gameFilters}>
@@ -91,6 +97,22 @@ const GameFilters = ({
               onClick={() => onSortSelect(sort.type)}
             >
               {sort.title}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className={styles.filtersContainer}>
+        <p className={styles.filtersTitle}>Columns</p>
+        <div className={styles.filters}>
+          {columnOptions.map((option) => (
+            <button
+              key={option}
+              className={`${styles.filter} ${
+                selectedColumns === option ? styles.selected : ''
+              }`}
+              onClick={() => onColumnSelect(option)}
+            >
+              {option}
             </button>
           ))}
         </div>

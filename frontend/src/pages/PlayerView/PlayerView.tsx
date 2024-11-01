@@ -51,6 +51,7 @@ const PlayerView = () => {
   const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([]);
 
   const [selectedSort, setSelectedSort] = useState<string>('');
+  const [selectedColumns, setSelectedColumns] = useState(3);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -84,6 +85,10 @@ const PlayerView = () => {
     } else {
       setSelectedSort(sort);
     }
+  };
+
+  const handleColumnSelect = (columns: number) => {
+    setSelectedColumns(columns);
   };
 
   const sortGames = (games: Game[], sortType: string) => {
@@ -129,7 +134,9 @@ const PlayerView = () => {
     if (!gamesToDisplay || gamesToDisplay.length === 0) {
       return <div>No games found</div>;
     }
-    return <GamesList games={gamesToDisplay} />;
+    return (
+      <GamesList games={gamesToDisplay} selectedColumns={selectedColumns} />
+    );
   };
 
   return (
@@ -148,6 +155,8 @@ const PlayerView = () => {
           onGroupSelect={handleGroupSelect}
           selectedSort={selectedSort}
           onSortSelect={handleSortSelect}
+          selectedColumns={selectedColumns}
+          onColumnSelect={handleColumnSelect}
         />
       </div>
     </div>
