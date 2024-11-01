@@ -76,8 +76,6 @@ const PlayerView = () => {
     );
   };
 
-  console.log(selectedGroupIds);
-
   // Filter games based on selected providers, groups and search term
   const filteredGames =
     data?.games.filter((game) => {
