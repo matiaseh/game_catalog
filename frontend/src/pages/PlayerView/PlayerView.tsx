@@ -49,7 +49,6 @@ const PlayerView = () => {
 
   const [selectedProviderIds, setSelectedProviderIds] = useState<number[]>([]);
   const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([]);
-
   const [selectedSortId, setSelectedSortId] = useState<number>();
   const [selectedColumns, setSelectedColumns] = useState(3);
 
@@ -83,13 +82,6 @@ const PlayerView = () => {
     setSelectedColumns(columns);
   };
 
-  const handleResetFilters = () => {
-    setSelectedProviderIds([]);
-    setSelectedGroupIds([]);
-    setSelectedColumns(3);
-    setSelectedSortId(undefined);
-  };
-
   const handleSortSelect = (sortId: number) => {
     if (sortId === selectedSortId) {
       setSelectedSortId(undefined);
@@ -112,6 +104,13 @@ const PlayerView = () => {
       default:
         return games;
     }
+  };
+
+  const handleResetFilters = () => {
+    setSelectedProviderIds([]);
+    setSelectedGroupIds([]);
+    setSelectedColumns(3);
+    setSelectedSortId(undefined);
   };
 
   // Filter games based on selected providers, groups and search term
@@ -155,10 +154,8 @@ const PlayerView = () => {
           gamesAmount={gamesToDisplay.length}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
-          providers={data?.providers}
           selectedProviderIds={selectedProviderIds}
           onProviderSelect={handleProviderSelect}
-          groups={data?.groups}
           selectedGroupIds={selectedGroupIds}
           onGroupSelect={handleGroupSelect}
           selectedSortId={selectedSortId}
@@ -166,6 +163,8 @@ const PlayerView = () => {
           selectedColumns={selectedColumns}
           onColumnSelect={handleColumnSelect}
           onResetFilters={handleResetFilters}
+          providers={data?.providers}
+          groups={data?.groups}
         />
       </div>
     </div>
