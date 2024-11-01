@@ -1,21 +1,11 @@
-.grid {
+.gamesList {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
 }
 
-.card {
-  position: relative;
-}
-
-.image {
+.gameImage {
   width: 100%;
   height: auto;
-  display: block;
-}
-
-@media (max-width: 428px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
+  border-radius: 8px;
 }

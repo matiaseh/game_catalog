@@ -7,10 +7,10 @@ interface GamesListProps {
 
 const GamesList = ({ games }: GamesListProps) => {
   return (
-    <div className={styles.grid}>
+    <div className={styles.gamesList}>
       {games.map((game) => (
-        <div key={game.id} className={styles.card}>
-          <img src={game.cover} alt={game.name} className={styles.image} />
+        <div className={styles.gameItem} key={game.id}>
+          <img src={game.cover} alt={game.name} className={styles.gameImage} />
         </div>
       ))}
     </div>
