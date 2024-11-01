@@ -1,0 +1,22 @@
+.inputField {
+  position: relative;
+  width: 100%;
+
+  input {
+    padding: 22.5px 16px;
+    width: 100%;
+    font-size: 16px;
+    line-height: 19px;
+    border: 1px solid #f2f2f2;
+    box-sizing: border-box;
+  }
+
+  i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #808080;
+  }
+}
