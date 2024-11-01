@@ -115,7 +115,6 @@ const PlayerView = () => {
   const handleResetFilters = () => {
     setSelectedProviderIds([]);
     setSelectedGroupIds([]);
-    setSelectedColumns(3);
     setSelectedSortId(0);
   };
 
