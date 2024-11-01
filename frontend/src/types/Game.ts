@@ -13,7 +13,7 @@ export interface Provider {
   logo: string;
 }
 
-interface Group {
+export interface Group {
   id: number;
   name: string;
   games: number[];

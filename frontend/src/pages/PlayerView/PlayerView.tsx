@@ -1,19 +1,32 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import GamesList from '../../components/GamesList/GamesList';
-import { Game, GamesData } from '../../types/Game';
+import { Game, GamesData, Group } from '../../types/Game';
 import styles from './PlayerView.module.scss';
 import NavBar from '../../components/NavBar/NavBar';
 import GameFilters from '../../components/GameFilters/GameFilters';
 import { useEffect, useState } from 'react';
 
-// Function to check if a game matches the selected providers
-const isGameFromSelectedProvider = (game: Game, providers: number[]) => {
-  if (providers.length === 0) return true;
-  return providers.includes(game.provider);
+// Check if a game matches the selected providers
+const isGameFromSelectedProvider = (game: Game, providerIds: number[]) => {
+  if (providerIds.length === 0) return true;
+  return providerIds.includes(game.provider);
 };
 
-// Function to check if a game matches the search term
+// Check if a game ID is part of the selected groups
+const isGameFromSelectedGroup = (
+  gameId: number,
+  groupIds: number[],
+  groups: Group[],
+) => {
+  if (groupIds.length === 0) return true;
+  return groupIds.some((groupId) => {
+    const group = groups.find((g) => g.id === groupId);
+    return group && group.games.includes(gameId);
+  });
+};
+
+// Check if a game matches the search term
 const isGameInSearchTerm = (game: Game, searchTerm: string) => {
   return game.name.toLowerCase().includes(searchTerm.toLowerCase());
 };
@@ -35,6 +48,7 @@ const PlayerView = () => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 
   const [selectedProviderIds, setSelectedProviderIds] = useState<number[]>([]);
+  const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,7 +68,17 @@ const PlayerView = () => {
     );
   };
 
-  // Filter games based on selected providers and search term
+  const handleGroupSelect = (groupId: number) => {
+    setSelectedGroupIds((prev) =>
+      prev.includes(groupId)
+        ? prev.filter((id) => id !== groupId)
+        : [...prev, groupId],
+    );
+  };
+
+  console.log(selectedGroupIds);
+
+  // Filter games based on selected providers, groups and search term
   const filteredGames =
     data?.games.filter((game) => {
       const matchesProvider = isGameFromSelectedProvider(
@@ -62,8 +86,15 @@ const PlayerView = () => {
         selectedProviderIds,
       );
 
+      const matchesGroup = isGameFromSelectedGroup(
+        game.id,
+        selectedGroupIds,
+        data.groups,
+      );
+
       const matchesSearchTerm = isGameInSearchTerm(game, debouncedSearchTerm);
-      return matchesProvider && matchesSearchTerm;
+
+      return matchesProvider && matchesGroup && matchesSearchTerm;
     }) || [];
 
   const renderGamesList = () => {
@@ -86,6 +117,9 @@ const PlayerView = () => {
           providers={data?.providers}
           selectedProviderIds={selectedProviderIds}
           onProviderSelect={handleProviderSelect}
+          groups={data?.groups}
+          selectedGroupIds={selectedGroupIds}
+          onGroupSelect={handleGroupSelect}
         />
       </div>
     </div>

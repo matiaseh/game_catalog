@@ -1,4 +1,4 @@
-import { Provider } from '../../types/Game';
+import { Group, Provider } from '../../types/Game';
 import InputField from '../InputField/InputField';
 import styles from './GameFilters.module.scss';
 
@@ -8,6 +8,9 @@ interface GameFiltersProps {
   providers?: Provider[];
   selectedProviderIds: number[];
   onProviderSelect: (providerId: number) => void;
+  groups?: Group[];
+  selectedGroupIds: number[];
+  onGroupSelect: (groupId: number) => void;
 }
 
 const GameFilters = ({
@@ -16,6 +19,9 @@ const GameFilters = ({
   providers,
   selectedProviderIds,
   onProviderSelect,
+  groups,
+  selectedGroupIds,
+  onGroupSelect,
 }: GameFiltersProps) => {
   return (
     <div className={styles.gameFilters}>
@@ -26,18 +32,34 @@ const GameFilters = ({
         value={searchTerm}
         iconName="fa-solid fa-magnifying-glass"
       />
-      <div className={styles.providersContainer}>
-        <p className={styles.providersTitle}>Providers</p>
-        <div className={styles.providers}>
+      <div className={styles.filtersContainer}>
+        <p className={styles.filtersTitle}>Providers</p>
+        <div className={styles.filters}>
           {providers?.map((provider) => (
             <button
               key={provider.id}
-              className={`${styles.providerButton} ${
+              className={`${styles.filter} ${
                 selectedProviderIds.includes(provider.id) ? styles.selected : ''
               }`}
               onClick={() => onProviderSelect(provider.id)}
             >
               {provider.name}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className={styles.filtersContainer}>
+        <p className={styles.filtersTitle}>Groups</p>
+        <div className={styles.filters}>
+          {groups?.map((group) => (
+            <button
+              key={group.id}
+              className={`${styles.filter} ${
+                selectedGroupIds.includes(group.id) ? styles.selected : ''
+              }`}
+              onClick={() => onGroupSelect(group.id)}
+            >
+              {group.name}
             </button>
           ))}
         </div>
