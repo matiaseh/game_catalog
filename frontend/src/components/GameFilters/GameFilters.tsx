@@ -22,10 +22,8 @@ interface GameFiltersProps {
   gamesAmount: number;
   searchTerm: string;
   onSearchChange: (search: string) => void;
-  providers?: Provider[];
   selectedProviderIds: number[];
   onProviderSelect: (providerId: number) => void;
-  groups?: Group[];
   selectedGroupIds: number[];
   onGroupSelect: (groupId: number) => void;
   selectedSortId: number | undefined;
@@ -33,16 +31,16 @@ interface GameFiltersProps {
   selectedColumns: number;
   onColumnSelect: (option: number) => void;
   onResetFilters: () => void;
+  providers?: Provider[];
+  groups?: Group[];
 }
 
 const GameFilters = ({
   gamesAmount,
   searchTerm,
   onSearchChange,
-  providers,
   selectedProviderIds,
   onProviderSelect,
-  groups,
   selectedGroupIds,
   onGroupSelect,
   selectedSortId,
@@ -50,6 +48,8 @@ const GameFilters = ({
   selectedColumns,
   onColumnSelect,
   onResetFilters,
+  providers,
+  groups,
 }: GameFiltersProps) => {
   return (
     <div className={styles.gameFilters}>
