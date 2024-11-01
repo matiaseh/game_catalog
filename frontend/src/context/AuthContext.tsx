@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 interface AuthContextType {
   isLoggedIn: boolean;
   username: string;
@@ -20,7 +22,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = async (username: string, password: string) => {
     try {
-      await axios.post('http://localhost:5000/api/login', {
+      await axios.post(`${apiUrl}/login`, {
         username,
         password,
       });
@@ -36,7 +38,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     try {
-      await axios.post('http://localhost:5000/api/logout', { username });
+      await axios.post(`${apiUrl}/logout`, { username });
       setIsLoggedIn(false);
       setUsername('');
       localStorage.removeItem('username');
@@ -51,9 +53,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const username = localStorage.getItem('username');
     if (username) {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/isLoggedIn/${username}`,
-        );
+        const response = await axios.get(`${apiUrl}/isLoggedIn/${username}`);
         setIsLoggedIn(response.data.loggedIn);
         setUsername(username);
       } catch (error) {
