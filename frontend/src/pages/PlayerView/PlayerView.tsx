@@ -1,9 +1,9 @@
-import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import GamesList from '../../components/GamesList/GamesList';
 import { GamesData } from '../../types/Game';
 import styles from './PlayerView.module.scss';
+import NavBar from '../../components/NavBar/NavBar';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -17,11 +17,6 @@ const PlayerView = () => {
     queryKey: ['games'],
     queryFn: fetchGamesData,
   });
-  const { logout } = useAuth();
-
-  const handleLogout = () => {
-    logout();
-  };
 
   const renderGamesList = () => {
     if (isLoading) return <div>Loading</div>;
@@ -34,9 +29,8 @@ const PlayerView = () => {
 
   return (
     <div className={styles.playerViewContainer}>
-      <h1>Player View</h1>
-      <button onClick={handleLogout}>Logout</button>
-      {renderGamesList()}
+      <NavBar />
+      <div className={styles.playerViewContent}>{renderGamesList()}</div>
     </div>
   );
 };
