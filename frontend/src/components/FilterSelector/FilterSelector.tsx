@@ -3,7 +3,7 @@ import { Sort } from '../GameFilters/GameFilters';
 import styles from './FilterSelector.module.scss';
 
 interface FilterSelectorProps {
-  title: 'Providers' | 'Groups' | 'Sorting';
+  title: 'Providers' | 'Game groups' | 'Sorting';
   options: Group[] | Provider[] | Sort[];
   selectedOptions?: number[];
   selectedOption?: number;

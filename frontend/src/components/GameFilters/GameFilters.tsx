@@ -82,7 +82,7 @@ const GameFilters = ({
           onOptionSelect={onProviderSelect}
         />
         <FilterSelector
-          title="Groups"
+          title="Game groups"
           options={groups}
           selectedOptions={selectedGroupIds}
           onOptionSelect={onGroupSelect}
