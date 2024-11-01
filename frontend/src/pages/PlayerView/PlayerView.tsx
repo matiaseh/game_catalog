@@ -112,7 +112,6 @@ const PlayerView = () => {
         return [...games].sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
         );
-
       default:
         return games;
     }
