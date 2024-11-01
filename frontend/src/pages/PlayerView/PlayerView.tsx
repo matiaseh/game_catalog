@@ -50,6 +50,8 @@ const PlayerView = () => {
   const [selectedProviderIds, setSelectedProviderIds] = useState<number[]>([]);
   const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([]);
 
+  const [selectedSort, setSelectedSort] = useState<string>('');
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
@@ -76,6 +78,30 @@ const PlayerView = () => {
     );
   };
 
+  const handleSortSelect = (sort: string) => {
+    if (sort === selectedSort) {
+      setSelectedSort('');
+    } else {
+      setSelectedSort(sort);
+    }
+  };
+
+  const sortGames = (games: Game[], sortType: string) => {
+    switch (sortType) {
+      case 'asc':
+        return [...games].sort((a, b) => a.name.localeCompare(b.name));
+      case 'desc':
+        return [...games].sort((a, b) => b.name.localeCompare(a.name));
+      case 'newest':
+        return [...games].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        );
+
+      default:
+        return games;
+    }
+  };
+
   // Filter games based on selected providers, groups and search term
   const filteredGames =
     data?.games.filter((game) => {
@@ -95,13 +121,15 @@ const PlayerView = () => {
       return matchesProvider && matchesGroup && matchesSearchTerm;
     }) || [];
 
+  const gamesToDisplay = sortGames(filteredGames, selectedSort);
+
   const renderGamesList = () => {
     if (isLoading) return <div>Loading</div>;
     if (error) return <div>Error loading games</div>;
-    if (!filteredGames || filteredGames.length === 0) {
+    if (!gamesToDisplay || gamesToDisplay.length === 0) {
       return <div>No games found</div>;
     }
-    return <GamesList games={filteredGames} />;
+    return <GamesList games={gamesToDisplay} />;
   };
 
   return (
@@ -118,6 +146,8 @@ const PlayerView = () => {
           groups={data?.groups}
           selectedGroupIds={selectedGroupIds}
           onGroupSelect={handleGroupSelect}
+          selectedSort={selectedSort}
+          onSortSelect={handleSortSelect}
         />
       </div>
     </div>

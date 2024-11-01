@@ -2,6 +2,17 @@ import { Group, Provider } from '../../types/Game';
 import InputField from '../InputField/InputField';
 import styles from './GameFilters.module.scss';
 
+export interface Sort {
+  type: string;
+  title: string;
+}
+
+const sorters: Sort[] = [
+  { type: 'asc', title: 'A-Z' },
+  { type: 'desc', title: 'Z-A' },
+  { type: 'newest', title: 'Newest' },
+];
+
 interface GameFiltersProps {
   searchTerm: string;
   onSearchChange: (search: string) => void;
@@ -11,6 +22,8 @@ interface GameFiltersProps {
   groups?: Group[];
   selectedGroupIds: number[];
   onGroupSelect: (groupId: number) => void;
+  selectedSort: string;
+  onSortSelect: (sort: string) => void;
 }
 
 const GameFilters = ({
@@ -22,6 +35,8 @@ const GameFilters = ({
   groups,
   selectedGroupIds,
   onGroupSelect,
+  selectedSort,
+  onSortSelect,
 }: GameFiltersProps) => {
   return (
     <div className={styles.gameFilters}>
@@ -60,6 +75,22 @@ const GameFilters = ({
               onClick={() => onGroupSelect(group.id)}
             >
               {group.name}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className={styles.filtersContainer}>
+        <p className={styles.filtersTitle}>Sorting</p>
+        <div className={styles.filters}>
+          {sorters.map((sort) => (
+            <button
+              key={sort.type}
+              className={`${styles.filter} ${
+                selectedSort === sort.type ? styles.selected : ''
+              }`}
+              onClick={() => onSortSelect(sort.type)}
+            >
+              {sort.title}
             </button>
           ))}
         </div>
