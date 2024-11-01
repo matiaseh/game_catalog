@@ -49,7 +49,7 @@ const PlayerView = () => {
 
   const [selectedProviderIds, setSelectedProviderIds] = useState<number[]>([]);
   const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([]);
-  const [selectedSortId, setSelectedSortId] = useState<number>();
+  const [selectedSortId, setSelectedSortId] = useState<number>(0);
   const [selectedColumns, setSelectedColumns] = useState(3);
 
   useEffect(() => {
@@ -61,6 +61,12 @@ const PlayerView = () => {
       clearTimeout(timer);
     };
   }, [searchTerm]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading games</div>;
+  if (!data || data.games.length === 0) {
+    return <div>No games found</div>;
+  }
 
   const handleProviderSelect = (providerId: number) => {
     setSelectedProviderIds((prev) =>
@@ -84,7 +90,7 @@ const PlayerView = () => {
 
   const handleSortSelect = (sortId: number) => {
     if (sortId === selectedSortId) {
-      setSelectedSortId(undefined);
+      setSelectedSortId(0);
     } else {
       setSelectedSortId(sortId);
     }
@@ -110,7 +116,7 @@ const PlayerView = () => {
     setSelectedProviderIds([]);
     setSelectedGroupIds([]);
     setSelectedColumns(3);
-    setSelectedSortId(undefined);
+    setSelectedSortId(0);
   };
 
   // Filter games based on selected providers, groups and search term
@@ -134,37 +140,26 @@ const PlayerView = () => {
 
   const gamesToDisplay = sortGames(filteredGames, selectedSortId);
 
-  const renderGamesList = () => {
-    if (isLoading) return <div>Loading</div>;
-    if (error) return <div>Error loading games</div>;
-    if (!gamesToDisplay || gamesToDisplay.length === 0) {
-      return <div>No games found</div>;
-    }
-    return (
-      <GamesList games={gamesToDisplay} selectedColumns={selectedColumns} />
-    );
-  };
-
   return (
     <div className={styles.playerViewContainer}>
       <NavBar />
       <div className={styles.playerViewContent}>
-        {renderGamesList()}
+        <GamesList games={gamesToDisplay} selectedColumns={selectedColumns} />
         <GameFilters
+          providers={data.providers}
+          groups={data.groups}
           gamesAmount={gamesToDisplay.length}
           searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
           selectedProviderIds={selectedProviderIds}
-          onProviderSelect={handleProviderSelect}
           selectedGroupIds={selectedGroupIds}
-          onGroupSelect={handleGroupSelect}
           selectedSortId={selectedSortId}
-          onSortSelect={handleSortSelect}
           selectedColumns={selectedColumns}
+          onSearchChange={setSearchTerm}
+          onProviderSelect={handleProviderSelect}
+          onGroupSelect={handleGroupSelect}
+          onSortSelect={handleSortSelect}
           onColumnSelect={handleColumnSelect}
           onResetFilters={handleResetFilters}
-          providers={data?.providers}
-          groups={data?.groups}
         />
       </div>
     </div>

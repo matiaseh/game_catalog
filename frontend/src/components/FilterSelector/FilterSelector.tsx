@@ -4,7 +4,7 @@ import styles from './FilterSelector.module.scss';
 
 interface FilterSelectorProps {
   title: 'Providers' | 'Groups' | 'Sorting';
-  options?: Group[] | Provider[] | Sort[];
+  options: Group[] | Provider[] | Sort[];
   selectedOptions?: number[];
   selectedOption?: number;
   onOptionSelect: (option: number) => void;
@@ -24,7 +24,7 @@ const FilterSelector = ({
       <p className={styles.filtersTitle}>{title}</p>
       <div className={styles.filters}>
         <div className={styles.filters}>
-          {options?.map((option) => (
+          {options.map((option) => (
             <button
               key={option.id}
               className={`${styles.filter} ${

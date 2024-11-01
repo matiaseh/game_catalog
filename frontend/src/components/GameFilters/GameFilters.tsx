@@ -19,20 +19,20 @@ const sorters: Sort[] = [
 const columnOptions = [2, 3, 4];
 
 interface GameFiltersProps {
+  providers: Provider[];
+  groups: Group[];
   gamesAmount: number;
   searchTerm: string;
-  onSearchChange: (search: string) => void;
   selectedProviderIds: number[];
-  onProviderSelect: (providerId: number) => void;
   selectedGroupIds: number[];
-  onGroupSelect: (groupId: number) => void;
-  selectedSortId: number | undefined;
-  onSortSelect: (sort: number) => void;
+  selectedSortId: number;
   selectedColumns: number;
+  onSearchChange: (search: string) => void;
+  onProviderSelect: (providerId: number) => void;
+  onGroupSelect: (groupId: number) => void;
+  onSortSelect: (sort: number) => void;
   onColumnSelect: (option: number) => void;
   onResetFilters: () => void;
-  providers?: Provider[];
-  groups?: Group[];
 }
 
 const GameFilters = ({
