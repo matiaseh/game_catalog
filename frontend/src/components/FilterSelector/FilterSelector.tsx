@@ -20,7 +20,7 @@ const FilterSelector = ({
   const isSingleSelect = title === 'Sorting';
 
   return (
-    <div className={styles.filtersContainer}>
+    <div className={styles.filterContainer}>
       <p className={styles.filtersTitle}>{title}</p>
       <div className={styles.filters}>
         <div className={styles.filters}>
