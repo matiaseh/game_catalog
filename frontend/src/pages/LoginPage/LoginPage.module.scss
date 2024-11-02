@@ -8,10 +8,13 @@ $buttonColor: #fdbc11;
   align-items: center;
   justify-content: center;
   gap: 40px;
-  margin: 0 24px;
+  padding: 0 24px;
+  box-sizing: border-box;
   width: 100%;
 
-  max-width: calc(100% - 48px);
+  @media (max-width: 428px) {
+    max-width: 380px;
+  }
 
   @media (min-width: 429px) {
     max-width: 412px;
