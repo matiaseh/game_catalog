@@ -23,7 +23,6 @@
     right: calc(24px - 1px); // Adjust for the border
     display: flex;
     align-items: center;
-    box-sizing: border-box;
     max-height: calc(100vh - 106px - 60px);
   }
 }

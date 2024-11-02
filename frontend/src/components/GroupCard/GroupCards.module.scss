@@ -3,7 +3,6 @@
   justify-content: center;
   gap: 32px;
   padding: 75px 82px;
-  box-sizing: border-box;
   overflow: hidden;
 }
 
@@ -16,7 +15,6 @@
   overflow: hidden;
   height: fit-content;
   max-height: calc(100vh - 70px - 150px);
-  box-sizing: border-box;
 }
 
 .groupItemsContainer {
@@ -29,7 +27,6 @@
   width: 100%;
   gap: 40px 10px;
   padding: 32px 0;
-  box-sizing: border-box;
   height: fit-content;
 }
 
@@ -59,7 +56,6 @@
   border-radius: 8px;
   color: #3f53be;
   cursor: pointer;
-  box-sizing: border-box;
 }
 
 .thumbnailContainer {
@@ -74,7 +70,6 @@
 
   &.provider {
     padding: 42px 30px;
-    box-sizing: border-box;
   }
 
   .thumbnailSlice {
