@@ -1,0 +1,86 @@
+.groupCardsContainer {
+  display: flex;
+  gap: 32px;
+  padding: 75px 82px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.groupCardContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f2f2f2;
+  border-radius: 8px;
+  padding: 32px 32px 0;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.groupTitle {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28.8px;
+  text-align: left;
+  color: #2b2b2b;
+  margin: 0;
+}
+
+.addIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid #3f53be;
+  border-radius: 8px;
+  color: #3f53be;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.groupItemsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-content: start;
+  justify-items: center;
+  width: 100%;
+  gap: 40px 10px;
+  padding: 32px 0;
+  box-sizing: border-box;
+}
+
+.thumbnailContainer {
+  width: 170px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #f2f2f2;
+
+  &.provider {
+    padding: 42px 30px;
+    box-sizing: border-box;
+  }
+
+  .thumbnailSlice {
+    background-size: 300% 100%;
+    height: 100%;
+  }
+
+  .coverImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}

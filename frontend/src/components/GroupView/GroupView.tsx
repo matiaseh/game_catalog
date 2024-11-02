@@ -1,7 +1,12 @@
-interface GroupViewProps {}
+import { GamesData } from '../../types/Game';
+import GroupCards from '../GroupCard/GroupCards';
 
-const GroupView = ({}: GroupViewProps) => {
-  return <div>Group view</div>;
+interface GroupViewProps {
+  data: GamesData;
+}
+
+const GroupView = ({ data }: GroupViewProps) => {
+  return <GroupCards data={data} />;
 };
 
 export default GroupView;

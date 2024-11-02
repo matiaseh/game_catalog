@@ -31,7 +31,7 @@ const GameProvider = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<PlayerView data={data} />} />
-        <Route path="/groups" element={<GroupView />} />
+        <Route path="/groups" element={<GroupView data={data} />} />
       </Routes>
     </div>
   );
