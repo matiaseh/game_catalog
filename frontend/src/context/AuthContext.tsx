@@ -6,6 +6,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 interface AuthContextType {
   isLoggedIn: boolean;
   username: string;
+  loading: boolean;
   login: (username: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   error: string | null;
@@ -19,13 +20,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const login = async (username: string, password: string) => {
     try {
-      await axios.post(`${apiUrl}/login`, {
-        username,
-        password,
-      });
+      await axios.post(`${apiUrl}/login`, { username, password });
       setIsLoggedIn(true);
       setUsername(username);
       setError(null);
@@ -61,6 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsLoggedIn(false);
       }
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, username, login, logout, error }}
+      value={{ isLoggedIn, username, login, logout, error, loading }}
     >
       {children}
     </AuthContext.Provider>
