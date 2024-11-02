@@ -1,12 +1,13 @@
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
-import GamesList from '../../components/GamesList/GamesList';
+import GamesList from '../GamesList/GamesList';
 import { Game, GamesData, Group } from '../../types/Game';
-import styles from './PlayerView.module.scss';
-import NavBar from '../../components/NavBar/NavBar';
-import GameFilters from '../../components/GameFilters/GameFilters';
+import GameFilters from '../GameFilters/GameFilters';
 import { useEffect, useState } from 'react';
 import useIsMobile from '../../hooks/useIsMobile';
+import styles from './PlayerView.module.scss';
+
+interface GamesViewProps {
+  data: GamesData;
+}
 
 // Check if a game matches the selected providers
 const isGameFromSelectedProvider = (game: Game, providerIds: number[]) => {
@@ -32,18 +33,7 @@ const isGameInSearchTerm = (game: Game, searchTerm: string) => {
   return game.name.toLowerCase().includes(searchTerm.toLowerCase());
 };
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
-const fetchGamesData = async (): Promise<GamesData> => {
-  const { data } = await axios.get(`${apiUrl}/games`);
-  return data;
-};
-
-const PlayerView = () => {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ['games'],
-    queryFn: fetchGamesData,
-  });
+const GamesView = ({ data }: GamesViewProps) => {
   const isMobile = useIsMobile();
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -71,12 +61,6 @@ const PlayerView = () => {
       setSelectedColumns(3);
     }
   }, [isMobile]);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading games</div>;
-  if (!data || data.games.length === 0) {
-    return <div>No games found</div>;
-  }
 
   const handleProviderSelect = (providerId: number) => {
     setSelectedProviderIds((prev) =>
@@ -149,29 +133,26 @@ const PlayerView = () => {
   const gamesToDisplay = sortGames(filteredGames, selectedSortId);
 
   return (
-    <div className={styles.playerViewContainer}>
-      <NavBar />
-      <div className={styles.playerViewContent}>
-        <GamesList games={gamesToDisplay} selectedColumns={selectedColumns} />
-        <GameFilters
-          providers={data.providers}
-          groups={data.groups}
-          gamesAmount={gamesToDisplay.length}
-          searchTerm={searchTerm}
-          selectedProviderIds={selectedProviderIds}
-          selectedGroupIds={selectedGroupIds}
-          selectedSortId={selectedSortId}
-          selectedColumns={selectedColumns}
-          onSearchChange={setSearchTerm}
-          onProviderSelect={handleProviderSelect}
-          onGroupSelect={handleGroupSelect}
-          onSortSelect={handleSortSelect}
-          onColumnSelect={handleColumnSelect}
-          onResetFilters={handleResetFilters}
-        />
-      </div>
+    <div className={styles.playerViewContent}>
+      <GamesList games={gamesToDisplay} selectedColumns={selectedColumns} />
+      <GameFilters
+        providers={data.providers}
+        groups={data.groups}
+        gamesAmount={gamesToDisplay.length}
+        searchTerm={searchTerm}
+        selectedProviderIds={selectedProviderIds}
+        selectedGroupIds={selectedGroupIds}
+        selectedSortId={selectedSortId}
+        selectedColumns={selectedColumns}
+        onSearchChange={setSearchTerm}
+        onProviderSelect={handleProviderSelect}
+        onGroupSelect={handleGroupSelect}
+        onSortSelect={handleSortSelect}
+        onColumnSelect={handleColumnSelect}
+        onResetFilters={handleResetFilters}
+      />
     </div>
   );
 };
 
-export default PlayerView;
+export default GamesView;

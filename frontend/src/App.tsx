@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
-import PlayerView from './pages/PlayerView/PlayerView';
+import GameProvider from './pages/GameProvider/GameProvider';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -12,10 +12,10 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route
-            path="/player"
+            path="/player/*"
             element={
               <ProtectedRoute>
-                <PlayerView />
+                <GameProvider />
               </ProtectedRoute>
             }
           />
