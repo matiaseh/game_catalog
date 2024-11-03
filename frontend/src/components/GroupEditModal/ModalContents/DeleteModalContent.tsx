@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { updateGroup, deleteGroup } from '../../../api/api';
+import { deleteGroup } from '../../../api/api';
 import { Group } from '../../../types/Game';
 import Dropdown from '../../Dropdown/Dropdown';
 import styles from './ModalContent.module.scss';
@@ -7,12 +7,17 @@ import styles from './ModalContent.module.scss';
 interface DeleteModalProps {
   selectedGroup: Group;
   groups: Group[];
+  onUpdate: (
+    targetGroupId: number,
+    group: { name: string; games: number[] },
+  ) => Promise<void>;
   onClose: () => void;
 }
 
 const DeleteModalContent = ({
   selectedGroup,
   groups,
+  onUpdate,
   onClose,
 }: DeleteModalProps) => {
   const [targetGroupId, setTargetGroupId] = useState<number | null>(null);
@@ -26,12 +31,13 @@ const DeleteModalContent = ({
   const handleDelete = async () => {
     if (!targetGroupId && !deleteCompletely) return;
     try {
-      if (targetGroupId) {
-        const targetGroupGames =
-          groups.find((group) => group.id === targetGroupId)?.games ?? [];
+      const targetGroup = groups.find((group) => group.id === targetGroupId);
 
-        const updatedGames = [...targetGroupGames, ...selectedGroup.games];
-        await updateGroup(targetGroupId, { games: updatedGames });
+      if (targetGroup) {
+        await onUpdate(targetGroup.id, {
+          name: targetGroup.name,
+          games: [...targetGroup.games, ...selectedGroup.games],
+        });
       }
 
       await deleteGroup(selectedGroup.id);

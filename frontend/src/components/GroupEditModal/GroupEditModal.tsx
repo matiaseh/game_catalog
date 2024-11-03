@@ -52,6 +52,9 @@ const GroupEditModal = ({
               selectedGroup={selectedGroup}
               groups={groups}
               onClose={onClose}
+              onUpdate={(targetGroupId, games) =>
+                updateGroup(targetGroupId, games)
+              }
             />
           )}
         </div>
