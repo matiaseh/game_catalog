@@ -49,8 +49,7 @@ const EditModalContent = ({
     selectedGroup?.games || [],
   );
 
-  // NOTE: Should user be able to create/patch when selectedGameIds === 0?
-  const isFormValid = input !== '';
+  const isFormValid = input !== '' && selectedGameIds.length > 0;
 
   const selectOptions: SelectOption[] = games.map((game) => ({
     value: game.id,
