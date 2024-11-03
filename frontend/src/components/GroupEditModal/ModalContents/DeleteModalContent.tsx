@@ -7,18 +7,18 @@ import styles from './ModalContent.module.scss';
 interface DeleteModalProps {
   selectedGroup: Group;
   groups: Group[];
+  onClose: () => void;
   onUpdate: (
     targetGroupId: number,
     group: { name: string; games: number[] },
   ) => Promise<void>;
-  onClose: () => void;
 }
 
 const DeleteModalContent = ({
   selectedGroup,
   groups,
-  onUpdate,
   onClose,
+  onUpdate,
 }: DeleteModalProps) => {
   const [targetGroupId, setTargetGroupId] = useState<number | null>(null);
   const [deleteCompletely, setDeleteCompletely] = useState(false);
