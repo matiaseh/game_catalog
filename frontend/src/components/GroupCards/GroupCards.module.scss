@@ -15,8 +15,9 @@
   overflow: hidden;
   height: fit-content;
   max-height: calc(100vh - 70px - 150px);
-  max-width: 412px;
+  max-width: 416px;
   flex: 1;
+  position: relative;
 }
 
 .groupItemsContainer {
@@ -74,10 +75,10 @@
   align-items: center;
   overflow: hidden;
   border-radius: 8px;
-  border: 1px solid #f2f2f2;
 
   &.provider {
     padding: 42px 30px;
+    border: 1px solid #f2f2f2;
   }
 
   .thumbnailSlice {
@@ -128,4 +129,8 @@
   &.delete {
     color: #ec4466;
   }
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
