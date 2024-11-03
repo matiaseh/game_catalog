@@ -10,6 +10,7 @@ interface GroupCardProps {
   providers?: Provider[];
   onEditClick: (group: Group) => void;
   onDeleteClick: (group: Group) => void;
+  onCreateClick?: () => void;
 }
 
 const GroupCard = ({
@@ -20,6 +21,7 @@ const GroupCard = ({
   allGames,
   onEditClick,
   onDeleteClick,
+  onCreateClick,
 }: GroupCardProps) => {
   return (
     <>
@@ -27,7 +29,12 @@ const GroupCard = ({
         <div className={styles.groupCard}>
           <div className={styles.titleContainer}>
             <h3 className={styles.groupTitle}>{title}</h3>
-            <i className={`${styles.addIcon} fa-solid fa-plus`} />
+            {onCreateClick && (
+              <i
+                className={`${styles.addIcon} fa-solid fa-plus`}
+                onClick={onCreateClick}
+              />
+            )}
           </div>
           <div className={styles.groupItemsContainer}>
             {groups.map((group) => {

@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { MultiValue, CSSObjectWithLabel } from 'react-select';
 import Select from 'react-select';
-import { updateGroup } from '../../../api/api';
 import { Group, Game } from '../../../types/Game';
 import InputField from '../../InputField/InputField';
 import styles from './ModalContent.module.scss';
 
 interface GroupEditProps {
-  selectedGroup: Group;
+  type: 'edit' | 'create';
+  selectedGroup?: Group;
   games: Game[];
   onClose: () => void;
+  onSubmit: (group: { name: string; games: number[] }) => Promise<void>;
 }
 
 interface SelectOption {
@@ -37,14 +38,21 @@ const customSelectStyles = {
 };
 
 const EditModalContent = ({
+  type,
   selectedGroup,
   games,
   onClose,
+  onSubmit,
 }: GroupEditProps) => {
-  const [input, setInput] = useState(selectedGroup.name);
+  const [input, setInput] = useState(selectedGroup?.name || '');
   const [selectedGameIds, setSelectedGameIds] = useState<number[]>(
-    selectedGroup.games,
+    selectedGroup?.games || [],
   );
+
+  const isFormValid =
+    type === 'create'
+      ? input === '' || selectedGameIds.length === 0
+      : input === '' && selectedGameIds.length === 0;
 
   const selectOptions: SelectOption[] = games.map((game) => ({
     value: game.id,
@@ -61,16 +69,16 @@ const EditModalContent = ({
   };
 
   const handleSave = async () => {
-    const updatedGroup = {
+    const groupData = {
       name: input,
       games: selectedGameIds,
     };
-
+    if (!isFormValid) return;
     try {
-      await updateGroup(selectedGroup.id, updatedGroup);
+      await onSubmit(groupData);
       onClose();
     } catch (error) {
-      console.error('Failed to update group:', error);
+      console.error(`Failed to ${type} group:`, error);
     }
   };
 
@@ -94,9 +102,9 @@ const EditModalContent = ({
       </div>
       <div className={styles.modalFooter}>
         <button
-          className={`${styles.save} ${input === '' && selectedGameIds.length === 0 ? styles.disabled : styles.enabled}`}
+          className={`${styles.save} ${isFormValid ? styles.disabled : styles.enabled}`}
           onClick={handleSave}
-          disabled={input === '' && selectedGameIds.length === 0}
+          disabled={isFormValid}
         >
           Save
         </button>

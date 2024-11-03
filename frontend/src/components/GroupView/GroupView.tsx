@@ -9,7 +9,13 @@ interface GroupViewProps {
 
 const GroupView = ({ data }: GroupViewProps) => {
   const [selectedGroup, setSelectedGroup] = useState<Group>();
-  const [modalType, setModalType] = useState<'edit' | 'delete'>();
+  const [modalType, setModalType] = useState<'edit' | 'create' | 'delete'>();
+
+  const handleCreateClick = () => {
+    // use temporary empty group
+    setSelectedGroup({ id: 0, name: '', games: [] });
+    setModalType('create');
+  };
 
   const handleEditClick = (group: Group) => {
     setSelectedGroup(group);
@@ -32,6 +38,7 @@ const GroupView = ({ data }: GroupViewProps) => {
         data={data}
         onEditClick={handleEditClick}
         onDeleteClick={handleDeleteClick}
+        onCreateClick={handleCreateClick}
       />
       {selectedGroup && modalType && (
         <GroupEditModal

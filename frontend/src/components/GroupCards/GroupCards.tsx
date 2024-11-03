@@ -6,9 +6,15 @@ interface GroupCardProps {
   data: GamesData;
   onEditClick: (group: Group) => void;
   onDeleteClick: (group: Group) => void;
+  onCreateClick: () => void;
 }
 
-const GroupCards = ({ data, onEditClick, onDeleteClick }: GroupCardProps) => {
+const GroupCards = ({
+  data,
+  onCreateClick,
+  onEditClick,
+  onDeleteClick,
+}: GroupCardProps) => {
   return (
     <div className={styles.groupCardsContainer}>
       <GroupCard
@@ -17,6 +23,7 @@ const GroupCards = ({ data, onEditClick, onDeleteClick }: GroupCardProps) => {
         allGames={data.games}
         onEditClick={onEditClick}
         onDeleteClick={onDeleteClick}
+        onCreateClick={onCreateClick}
       />
       <GroupCard
         title="Games"
