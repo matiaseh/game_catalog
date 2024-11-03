@@ -49,10 +49,8 @@ const EditModalContent = ({
     selectedGroup?.games || [],
   );
 
-  const isFormValid =
-    type === 'create'
-      ? input === '' || selectedGameIds.length === 0
-      : input === '' && selectedGameIds.length === 0;
+  // NOTE: Should user be able to create/patch when selectedGameIds === 0?
+  const isFormValid = input !== '';
 
   const selectOptions: SelectOption[] = games.map((game) => ({
     value: game.id,
@@ -102,9 +100,9 @@ const EditModalContent = ({
       </div>
       <div className={styles.modalFooter}>
         <button
-          className={`${styles.save} ${isFormValid ? styles.disabled : styles.enabled}`}
+          className={`${styles.save} ${!isFormValid ? styles.disabled : styles.enabled}`}
           onClick={handleSave}
-          disabled={isFormValid}
+          disabled={!isFormValid}
         >
           Save
         </button>
