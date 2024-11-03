@@ -35,8 +35,8 @@ const GroupEditModal = ({
               selectedGroup={selectedGroup}
               games={games}
               onClose={onClose}
-              onSubmit={(updatedGroup) =>
-                updateGroup(selectedGroup.id, updatedGroup)
+              onSubmit={async (updatedGroup) =>
+                await updateGroup(selectedGroup.id, updatedGroup)
               }
             />
           ) : type === 'create' ? (
@@ -45,16 +45,13 @@ const GroupEditModal = ({
               selectedGroup={selectedGroup}
               games={games}
               onClose={onClose}
-              onSubmit={(newGroup) => createGroup(newGroup)}
+              onSubmit={async (newGroup) => await createGroup(newGroup)}
             />
           ) : (
             <DeleteModalContent
               selectedGroup={selectedGroup}
               groups={groups}
               onClose={onClose}
-              onUpdate={(targetGroupId, games) =>
-                updateGroup(targetGroupId, games)
-              }
             />
           )}
         </div>

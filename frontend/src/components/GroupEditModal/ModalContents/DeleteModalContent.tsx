@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { deleteGroup } from '../../../api/api';
+import { deleteGroup, updateGroup } from '../../../api/api';
 import { Group } from '../../../types/Game';
 import Dropdown from '../../Dropdown/Dropdown';
 import styles from './ModalContent.module.scss';
@@ -8,17 +8,12 @@ interface DeleteModalProps {
   selectedGroup: Group;
   groups: Group[];
   onClose: () => void;
-  onUpdate: (
-    targetGroupId: number,
-    group: { name: string; games: number[] },
-  ) => Promise<void>;
 }
 
 const DeleteModalContent = ({
   selectedGroup,
   groups,
   onClose,
-  onUpdate,
 }: DeleteModalProps) => {
   const [targetGroupId, setTargetGroupId] = useState<number | null>(null);
   const [deleteCompletely, setDeleteCompletely] = useState(false);
@@ -34,10 +29,8 @@ const DeleteModalContent = ({
       const targetGroup = groups.find((group) => group.id === targetGroupId);
 
       if (targetGroup) {
-        await onUpdate(targetGroup.id, {
-          name: targetGroup.name,
-          games: [...targetGroup.games, ...selectedGroup.games],
-        });
+        const updatedGames = [...targetGroup.games, ...selectedGroup.games];
+        await updateGroup(targetGroup.id, { games: updatedGames });
       }
 
       await deleteGroup(selectedGroup.id);
