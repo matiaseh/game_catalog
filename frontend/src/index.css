@@ -20,6 +20,10 @@
   justify-content: center;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -36,6 +40,6 @@ button {
   font-family: inherit;
 }
 
-* {
-  box-sizing: border-box;
+::-webkit-scrollbar {
+  display: none;
 }
