@@ -5,7 +5,7 @@ import styles from './GameProvider.module.scss';
 import NavBar from '../../components/NavBar/NavBar';
 import { Route, Routes } from 'react-router-dom';
 import GroupView from '../../components/GroupView/GroupView';
-import PlayerView from '../../components/PlayerView/PlayerView';
+import PlayerView from '../../components/GamesView/GamesView';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 

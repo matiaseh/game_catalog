@@ -2,8 +2,7 @@ import GamesList from '../GamesList/GamesList';
 import { Game, GamesData, Group } from '../../types/Game';
 import GameFilters from '../GameFilters/GameFilters';
 import { useEffect, useState } from 'react';
-import useIsMobile from '../../hooks/useIsMobile';
-import styles from './PlayerView.module.scss';
+import styles from './GamesView.module.scss';
 
 interface GamesViewProps {
   data: GamesData;
@@ -34,15 +33,13 @@ const isGameInSearchTerm = (game: Game, searchTerm: string) => {
 };
 
 const GamesView = ({ data }: GamesViewProps) => {
-  const isMobile = useIsMobile();
-
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 
   const [selectedProviderIds, setSelectedProviderIds] = useState<number[]>([]);
   const [selectedGroupIds, setSelectedGroupIds] = useState<number[]>([]);
   const [selectedSortId, setSelectedSortId] = useState<number>(0);
-  const [selectedColumns, setSelectedColumns] = useState(isMobile ? 2 : 3);
+  const [selectedColumns, setSelectedColumns] = useState(3);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,14 +50,6 @@ const GamesView = ({ data }: GamesViewProps) => {
       clearTimeout(timer);
     };
   }, [searchTerm]);
-
-  useEffect(() => {
-    if (isMobile) {
-      setSelectedColumns(2);
-    } else {
-      setSelectedColumns(3);
-    }
-  }, [isMobile]);
 
   const handleProviderSelect = (providerId: number) => {
     setSelectedProviderIds((prev) =>
