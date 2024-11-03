@@ -15,7 +15,7 @@ const fetchGamesData = async (): Promise<GamesData> => {
 };
 
 const GameProvider = () => {
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, refetch } = useQuery({
     queryKey: ['games'],
     queryFn: fetchGamesData,
   });
@@ -31,7 +31,10 @@ const GameProvider = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<PlayerView data={data} />} />
-        <Route path="/groups" element={<GroupView data={data} />} />
+        <Route
+          path="/groups"
+          element={<GroupView data={data} refetch={refetch} />}
+        />
       </Routes>
     </div>
   );
