@@ -53,7 +53,9 @@ const GroupCard = ({
       )}
       {games && (
         <div className={styles.groupCard}>
-          <h3 className={styles.groupTitle}>{title}</h3>
+          <div className={styles.titleContainer}>
+            <h3 className={styles.groupTitle}>{title}</h3>
+          </div>
           <div className={styles.groupItemsContainer}>
             {games.map((game) => (
               <div className={styles.groupItemContainer} key={game.id}>
@@ -64,7 +66,9 @@ const GroupCard = ({
                     className={styles.coverImage}
                   />
                 </div>
-                <div className={styles.thumbnailFooter}>{game.name}</div>
+                <div className={styles.thumbnailFooter}>
+                  <p>{game.name}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -72,7 +76,9 @@ const GroupCard = ({
       )}
       {providers && (
         <div className={styles.groupCard}>
-          <h3 className={styles.groupTitle}>{title}</h3>
+          <div className={styles.titleContainer}>
+            <h3 className={styles.groupTitle}>{title}</h3>
+          </div>
           <div className={styles.groupItemsContainer}>
             {providers.map((provider) => (
               <div className={styles.groupItemContainer} key={provider.id}>
@@ -85,7 +91,9 @@ const GroupCard = ({
                     className={styles.coverImage}
                   />
                 </div>
-                <div className={styles.thumbnailFooter}>{provider.name}</div>
+                <div className={styles.thumbnailFooter}>
+                  <p>{provider.name}</p>
+                </div>
               </div>
             ))}
           </div>
