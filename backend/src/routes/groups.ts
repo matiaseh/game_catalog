@@ -3,6 +3,36 @@ import { getGamesData, saveGamesData } from '../utils/gamesData';
 
 const router = express.Router();
 
+router.post('/', (req, res) => {
+  const { name, games } = req.body;
+
+  if (typeof name !== 'string' || !Array.isArray(games)) {
+    res.status(400).send({ error: 'Invalid group data' });
+  }
+
+  const data = getGamesData();
+
+  // Generate a new ID by adding 1 to the highest existing ID
+  const newGroupId =
+    data.groups.length > 0
+      ? Math.max(...data.groups.map((group) => group.id)) + 1
+      : 1;
+
+  const newGroup = {
+    id: newGroupId,
+    name,
+    games,
+  };
+
+  data.groups.push(newGroup);
+
+  saveGamesData(data);
+
+  res
+    .status(201)
+    .send({ message: 'Group created successfully', group: newGroup });
+});
+
 router.patch('/:id', (req, res) => {
   const groupId = parseInt(req.params.id);
 
@@ -33,7 +63,6 @@ router.patch('/:id', (req, res) => {
   res.status(200).send({ message: 'Group updated successfully', group });
 });
 
-// Delete a group by ID
 router.delete('/:id', (req, res) => {
   const groupId = parseInt(req.params.id);
 
