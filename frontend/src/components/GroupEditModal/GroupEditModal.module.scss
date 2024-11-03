@@ -7,6 +7,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 628px;
+  max-height: calc(100vh - 70px - 150px);
+
   width: 100%;
   background-color: white;
   border-radius: 8px;
@@ -40,6 +42,7 @@
     align-items: flex-start;
     gap: 40px;
     width: 100%;
+    overflow-y: scroll;
 
     h2 {
       margin: 0px;
