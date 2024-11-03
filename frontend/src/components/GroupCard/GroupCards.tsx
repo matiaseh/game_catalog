@@ -19,22 +19,37 @@ interface ThumbnailProps {
   gameImages: string[];
 }
 
-const Thumbnail = ({ gameImages }: ThumbnailProps) => {
+const Thumbnail = ({ gameImages, groupName }: ThumbnailProps) => {
   const sliceWidth = 33.33;
 
   return (
-    <div className={styles.thumbnailContainer}>
-      {gameImages.slice(0, 3).map((image, index) => (
-        <div
-          key={index}
-          className={styles.thumbnailSlice}
-          style={{
-            backgroundImage: `url(${image || 'path/to/default.jpg'})`,
-            backgroundPosition: `${sliceWidth * index}% 0`,
-            width: `${sliceWidth}%`,
-          }}
-        />
-      ))}
+    <div className={styles.groupItemContainer}>
+      <div className={styles.thumbnailContainer}>
+        {gameImages.slice(0, 3).map((image, index) => (
+          <div
+            key={index}
+            className={styles.thumbnailSlice}
+            style={{
+              backgroundImage: `url(${image || 'path/to/default.jpg'})`,
+              backgroundPosition: `${sliceWidth * index}% 0`,
+              width: `${sliceWidth}%`,
+            }}
+          />
+        ))}
+      </div>
+      <div className={styles.thumbnailFooter}>
+        <p>{groupName}</p>
+        <div className={styles.groupEditIcons}>
+          <div className={`${styles.groupEditIcon} ${styles.add}`}>
+            <i className="fa-solid fa-pen" />
+            <p>Edit</p>
+          </div>
+          <div className={`${styles.groupEditIcon} ${styles.delete}`}>
+            <i className="fa-solid fa-xmark" />
+            <p>Delete</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -42,7 +57,7 @@ const Thumbnail = ({ gameImages }: ThumbnailProps) => {
 const GroupCards = ({ data }: GroupCardProps) => {
   return (
     <div className={styles.groupCardsContainer}>
-      <div className={styles.groupCardContainer}>
+      <div className={styles.groupCard}>
         <div className={styles.titleContainer}>
           <h3 className={styles.groupTitle}>Groups</h3>
           <i className={`${styles.addIcon} fa-solid fa-plus`} />
@@ -60,25 +75,28 @@ const GroupCards = ({ data }: GroupCardProps) => {
           })}
         </div>
       </div>
-      <div className={styles.groupCardContainer}>
+      <div className={styles.groupCard}>
         <h3 className={styles.groupTitle}>Games</h3>
         <div className={styles.groupItemsContainer}>
           {data.games.map((game) => (
-            <div className={styles.thumbnailContainer} key={game.id}>
-              <img
-                src={game.cover}
-                alt={game.name}
-                className={styles.coverImage}
-              />
+            <div className={styles.groupItemContainer}>
+              <div className={styles.thumbnailContainer} key={game.id}>
+                <img
+                  src={game.cover}
+                  alt={game.name}
+                  className={styles.coverImage}
+                />
+              </div>
+              <div className={styles.thumbnailFooter}>{game.name}</div>
             </div>
           ))}
         </div>
       </div>
-      <div className={styles.groupCardContainer}>
+      <div className={styles.groupCard}>
         <h3 className={styles.groupTitle}>Providers</h3>
         <div className={styles.groupItemsContainer}>
-          {data.providers.map((provider) => {
-            return (
+          {data.providers.map((provider) => (
+            <div className={styles.groupItemContainer}>
               <div
                 className={`${styles.thumbnailContainer} ${styles.provider}`}
                 key={provider.id}
@@ -89,8 +107,9 @@ const GroupCards = ({ data }: GroupCardProps) => {
                   className={styles.coverImage}
                 />
               </div>
-            );
-          })}
+              <div className={styles.thumbnailFooter}>{provider.name}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
