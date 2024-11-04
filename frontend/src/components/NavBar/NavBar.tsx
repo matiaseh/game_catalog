@@ -29,7 +29,7 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/player/groups" onClick={() => setIsDropdownOpen(false)}>
+          <Link to="/groups" onClick={() => setIsDropdownOpen(false)}>
             Groups
           </Link>
         </li>

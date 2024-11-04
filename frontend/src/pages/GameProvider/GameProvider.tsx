@@ -30,7 +30,7 @@ const GameProvider = () => {
     <div className={styles.playerViewContainer}>
       <NavBar />
       <Routes>
-        <Route path="/" element={<PlayerView data={data} />} />
+        <Route path="/player" element={<PlayerView data={data} />} />
         <Route path="/groups" element={<GroupView data={data} />} />
       </Routes>
     </div>

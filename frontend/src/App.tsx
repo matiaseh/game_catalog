@@ -12,7 +12,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route
-            path="/player/*"
+            path="/*"
             element={
               <ProtectedRoute>
                 <GameProvider />
