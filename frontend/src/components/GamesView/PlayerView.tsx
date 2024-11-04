@@ -2,7 +2,7 @@ import GamesList from '../GamesList/GamesList';
 import { Game, GamesData, Group } from '../../types/Game';
 import GameFilters from '../GameFilters/GameFilters';
 import { useEffect, useState } from 'react';
-import styles from './GamesView.module.scss';
+import styles from './PlayerView.module.scss';
 
 interface GamesViewProps {
   data: GamesData;
