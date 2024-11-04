@@ -1,6 +1,7 @@
 import { Group, Provider } from '../../types/Game';
+import SliderSelector from '../ColumnSelector/SliderSelector';
 import { Sort } from '../GameFilters/GameFilters';
-import styles from './FilterSelector.module.scss';
+import styles from './FilterSelectors.module.scss';
 
 interface FilterSelectorProps {
   title: 'Providers' | 'Game groups' | 'Sorting';
@@ -10,7 +11,7 @@ interface FilterSelectorProps {
   onOptionSelect: (option: number) => void;
 }
 
-const FilterSelector = ({
+export const FilterSelector = ({
   title,
   options,
   selectedOptions,
@@ -21,7 +22,7 @@ const FilterSelector = ({
 
   return (
     <div className={styles.filterContainer}>
-      <p className={styles.filtersTitle}>{title}</p>
+      <p className={styles.filterTitle}>{title}</p>
       <div className={styles.filters}>
         <div className={styles.filters}>
           {options.map((option) => (
@@ -47,4 +48,44 @@ const FilterSelector = ({
   );
 };
 
-export default FilterSelector;
+const columnOptions = [2, 3, 4];
+
+interface ColumnSelectorProps {
+  selectedColumns: number;
+  onColumnSelect: (option: number) => void;
+}
+
+export const ColumnSelector = ({
+  selectedColumns,
+  onColumnSelect,
+}: ColumnSelectorProps) => {
+  return (
+    <div className={`${styles.filterContainer} ${styles.columnSelector}`}>
+      <p className={styles.filterTitle}>Columns</p>
+      <SliderSelector
+        options={columnOptions}
+        value={selectedColumns}
+        handleChange={(option) => onColumnSelect(option)}
+      />
+    </div>
+  );
+};
+
+interface FiltersFooterProps {
+  itemsAmount: number;
+  onResetClick: () => void;
+}
+
+export const FiltersFooter = ({
+  itemsAmount,
+  onResetClick,
+}: FiltersFooterProps) => {
+  return (
+    <div className={styles.itemsAmount}>
+      <p className={styles.filterTitle}>Games amount {itemsAmount}</p>
+      <button className={styles.resetButton} onClick={onResetClick}>
+        Reset
+      </button>
+    </div>
+  );
+};

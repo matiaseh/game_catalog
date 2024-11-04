@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Group, Provider } from '../../types/Game';
-import ColumnSelector from '../ColumnSlider/ColumnSelector';
-import FilterSelector from '../FilterSelector/FilterSelector';
 import InputField from '../InputField/InputField';
 import styles from './GameFilters.module.scss';
-import filterStyles from '../FilterSelector/FilterSelector.module.scss';
-import useIsMobile from '../../hooks/useIsMobile';
+import {
+  ColumnSelector,
+  FilterSelector,
+  FiltersFooter,
+} from '../Filters/FilterSelectors';
 
 export interface Sort {
   id: number;
@@ -18,8 +19,6 @@ const sorters: Sort[] = [
   { id: 2, type: 'desc', name: 'Z-A' },
   { id: 3, type: 'newest', name: 'Newest' },
 ];
-
-const columnOptions = [2, 3, 4];
 
 interface GameFiltersProps {
   providers: Provider[];
@@ -55,11 +54,12 @@ const GameFilters = ({
   groups,
 }: GameFiltersProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const isMobile = useIsMobile();
 
-  const renderFilters = () => {
+  const renderFilterSelectors = (isOpen: boolean) => {
     return (
-      <div className={styles.scrollableContent}>
+      <div
+        className={`${styles.scrollableContent} ${isOpen ? styles.show : styles.hide}`}
+      >
         <FilterSelector
           title="Providers"
           options={providers}
@@ -78,24 +78,14 @@ const GameFilters = ({
           selectedOption={selectedSortId}
           onOptionSelect={onSortSelect}
         />
-        {!isMobile && (
-          <div className={filterStyles.filtersContainer}>
-            <p className={filterStyles.filtersTitle}>Columns</p>
-            <ColumnSelector
-              options={columnOptions}
-              value={selectedColumns}
-              handleChange={(option) => onColumnSelect(option)}
-            />
-          </div>
-        )}
-        <div className={styles.gamesAmount}>
-          <p className={filterStyles.filtersTitle}>
-            Games amount {gamesAmount}
-          </p>
-          <button className={styles.resetButton} onClick={onResetFilters}>
-            Reset
-          </button>
-        </div>
+        <ColumnSelector
+          selectedColumns={selectedColumns}
+          onColumnSelect={onColumnSelect}
+        />
+        <FiltersFooter
+          itemsAmount={gamesAmount}
+          onResetClick={onResetFilters}
+        />
       </div>
     );
   };
@@ -109,16 +99,14 @@ const GameFilters = ({
         value={searchTerm}
         iconName="fa-solid fa-magnifying-glass"
       />
-      {isMobile ? isDrawerOpen && renderFilters() : renderFilters()}
-      {isMobile && (
-        <button
-          className={styles.drawerToggleButton}
-          onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-        >
-          <i className="fa-solid fa-bars" />
-          {isDrawerOpen ? 'Close Filters' : 'Open Filters'}
-        </button>
-      )}
+      {renderFilterSelectors(isDrawerOpen)}
+      <button
+        className={styles.drawerToggleButton}
+        onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+      >
+        <i className="fa-solid fa-bars" />
+        {isDrawerOpen ? 'Close Filters' : 'Open Filters'}
+      </button>
     </div>
   );
 };

@@ -8,21 +8,27 @@
   border-radius: 8px;
 }
 
-.gameItem {
-  max-width: 200px;
-  height: auto;
-}
-
 .columns-2 {
   grid-template-columns: repeat(2, 1fr);
 }
 
 .columns-3 {
   grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 428px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .columns-4 {
   grid-template-columns: repeat(4, 1fr);
+  @media (max-width: 428px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.gameItem {
+  max-width: 200px;
+  height: auto;
 }
 
 .gameImage {
