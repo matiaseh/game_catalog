@@ -52,6 +52,7 @@ const DeleteModalContent = ({
         </p>
         <div className={styles.dropDown}>
           <Dropdown
+            placeholder="Move games to"
             options={groupOptions.filter(
               (group) => group.value !== selectedGroup.id,
             )}

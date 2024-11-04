@@ -7,27 +7,33 @@ interface DropdownOption {
 }
 
 interface DropdownProps {
+  placeholder: string;
   options: DropdownOption[];
   selectedValue: number | null;
   onSelect: (value: number) => void;
 }
 
-const Dropdown = ({ options, selectedValue, onSelect }: DropdownProps) => {
+const Dropdown = ({
+  placeholder,
+  options,
+  selectedValue,
+  onSelect,
+}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  const handleSelect = (groupId: number) => {
-    onSelect(groupId);
+  const handleSelect = (value: number) => {
+    onSelect(value);
     setIsOpen(false);
   };
 
-  const selectedGroup = options.find(
+  const selectedOption = options.find(
     (option) => option.value === selectedValue,
   );
-  const selectedGroupName = selectedGroup
-    ? selectedGroup.label
-    : 'Select a group';
+  const selectedOptionLabel = selectedOption
+    ? selectedOption.label
+    : placeholder;
 
   return (
     <div className={styles.dropdown}>
@@ -35,9 +41,9 @@ const Dropdown = ({ options, selectedValue, onSelect }: DropdownProps) => {
         className={styles.dropdownInput}
         type="text"
         readOnly
-        value={selectedGroupName}
+        value={selectedOptionLabel}
         onClick={toggleDropdown}
-        placeholder="Select a group"
+        placeholder={placeholder}
       />
       <i
         className={`${styles.dropdownIcon} ${isOpen ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'}`}
