@@ -4,7 +4,7 @@ import GameFilters from '../GameFilters/GameFilters';
 import { useEffect, useState } from 'react';
 import styles from './PlayerView.module.scss';
 
-interface GamesViewProps {
+interface PlayerViewProps {
   data: GamesData;
 }
 
@@ -32,7 +32,7 @@ const isGameInSearchTerm = (game: Game, searchTerm: string) => {
   return game.name.toLowerCase().includes(searchTerm.toLowerCase());
 };
 
-const GamesView = ({ data }: GamesViewProps) => {
+const PlayerView = ({ data }: PlayerViewProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 
@@ -144,4 +144,4 @@ const GamesView = ({ data }: GamesViewProps) => {
   );
 };
 
-export default GamesView;
+export default PlayerView;

@@ -6,7 +6,7 @@ import InputField from '../../InputField/InputField';
 import styles from './ModalContent.module.scss';
 import { useQueryClient } from '@tanstack/react-query'; // Import useQueryClient
 
-interface GroupEditProps {
+interface EditModalProps {
   type: 'edit' | 'create';
   selectedGroup?: Group;
   games: Game[];
@@ -44,7 +44,7 @@ const EditModalContent = ({
   games,
   onClose,
   onSubmit,
-}: GroupEditProps) => {
+}: EditModalProps) => {
   const queryClient = useQueryClient();
   const [input, setInput] = useState(selectedGroup?.name || '');
   const [selectedGameIds, setSelectedGameIds] = useState<number[]>(

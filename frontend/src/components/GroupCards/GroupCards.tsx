@@ -2,7 +2,7 @@ import { GamesData, Group } from '../../types/Game';
 import GroupCard from './GroupCard';
 import styles from './GroupCards.module.scss';
 
-interface GroupCardProps {
+interface GroupCardsProps {
   data: GamesData;
   onEditClick: (group: Group) => void;
   onDeleteClick: (group: Group) => void;
@@ -14,7 +14,7 @@ const GroupCards = ({
   onCreateClick,
   onEditClick,
   onDeleteClick,
-}: GroupCardProps) => {
+}: GroupCardsProps) => {
   return (
     <div className={styles.groupCardsContainer}>
       <GroupCard

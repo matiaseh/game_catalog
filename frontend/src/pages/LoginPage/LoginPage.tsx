@@ -5,7 +5,7 @@ import styles from './LoginPage.module.scss';
 import logo from '../../assets/finnplayLogo.svg';
 import InputField from '../../components/InputField/InputField';
 
-const LoginForm: React.FC = () => {
+const LoginForm = () => {
   const { login, error, isLoggedIn } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

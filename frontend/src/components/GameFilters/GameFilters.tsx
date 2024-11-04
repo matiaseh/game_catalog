@@ -6,7 +6,7 @@ import {
   ColumnSelector,
   FilterSelector,
   FiltersFooter,
-} from '../Filters/FilterSelectors';
+} from '../FilterSelectors/FilterSelectors';
 
 export interface Sort {
   id: number;
