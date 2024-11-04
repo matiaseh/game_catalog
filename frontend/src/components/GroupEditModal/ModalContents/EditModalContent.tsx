@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { Group, Game } from '../../../types/Game';
 import InputField from '../../InputField/InputField';
 import styles from './ModalContent.module.scss';
+import { useQueryClient } from '@tanstack/react-query'; // Import useQueryClient
 
 interface GroupEditProps {
   type: 'edit' | 'create';
@@ -44,6 +45,7 @@ const EditModalContent = ({
   onClose,
   onSubmit,
 }: GroupEditProps) => {
+  const queryClient = useQueryClient();
   const [input, setInput] = useState(selectedGroup?.name || '');
   const [selectedGameIds, setSelectedGameIds] = useState<number[]>(
     selectedGroup?.games || [],
@@ -73,6 +75,7 @@ const EditModalContent = ({
     if (!isFormValid) return;
     try {
       await onSubmit(groupData);
+      queryClient.invalidateQueries({ queryKey: ['games'] });
       onClose();
     } catch (error) {
       console.error(`Failed to ${type} group:`, error);

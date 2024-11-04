@@ -2,14 +2,12 @@ import { useState } from 'react';
 import { GamesData, Group } from '../../types/Game';
 import GroupCards from '../GroupCards/GroupCards';
 import GroupEditModal from '../GroupEditModal/GroupEditModal';
-import { QueryObserverResult } from '@tanstack/react-query';
 
 interface GroupViewProps {
   data: GamesData;
-  refetch: () => Promise<QueryObserverResult<GamesData, Error>>;
 }
 
-const GroupView = ({ data, refetch }: GroupViewProps) => {
+const GroupView = ({ data }: GroupViewProps) => {
   const [selectedGroup, setSelectedGroup] = useState<Group>();
   const [modalType, setModalType] = useState<'edit' | 'create' | 'delete'>();
 
@@ -32,9 +30,6 @@ const GroupView = ({ data, refetch }: GroupViewProps) => {
   const closeModal = () => {
     setSelectedGroup(undefined);
     setModalType(undefined);
-
-    // TODO: Maybe not the best way to refech every time modal is closed but works for now.
-    refetch();
   };
 
   return (

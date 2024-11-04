@@ -3,6 +3,7 @@ import { deleteGroup, updateGroup } from '../../../api/api';
 import { Group } from '../../../types/Game';
 import Dropdown from '../../Dropdown/Dropdown';
 import styles from './ModalContent.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface DeleteModalProps {
   selectedGroup: Group;
@@ -15,6 +16,7 @@ const DeleteModalContent = ({
   groups,
   onClose,
 }: DeleteModalProps) => {
+  const queryClient = useQueryClient();
   const [targetGroupId, setTargetGroupId] = useState<number | null>(null);
   const [deleteCompletely, setDeleteCompletely] = useState(false);
 
@@ -34,6 +36,7 @@ const DeleteModalContent = ({
       }
 
       await deleteGroup(selectedGroup.id);
+      queryClient.invalidateQueries({ queryKey: ['games'] });
       onClose();
     } catch (error) {
       console.error('Failed to update group:', error);
