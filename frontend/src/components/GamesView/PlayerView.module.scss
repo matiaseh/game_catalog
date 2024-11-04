@@ -4,12 +4,10 @@
   justify-content: space-between;
   gap: 20px;
   padding: 75px 82px;
-}
+  justify-content: center;
 
-@media (max-width: 428px) {
-  .playerViewContent {
+  @media (max-width: 428px) {
     padding: 228px 24px 0px;
-    justify-content: center;
   }
 }
 
