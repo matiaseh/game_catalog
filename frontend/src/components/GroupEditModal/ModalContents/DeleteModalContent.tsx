@@ -4,6 +4,7 @@ import { Group } from '../../../types/Game';
 import Dropdown from '../../Dropdown/Dropdown';
 import styles from './ModalContent.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
+import Checkbox from '../../Checkbox/Checkbox';
 
 interface DeleteModalProps {
   selectedGroup: Group;
@@ -49,7 +50,7 @@ const DeleteModalContent = ({
         <p>
           {`Do you want to delete ${selectedGroup.name} group? If you want to move ${selectedGroup.games.length} games,select new group below.`}
         </p>
-        <div>
+        <div className={styles.dropDown}>
           <Dropdown
             options={groupOptions.filter(
               (group) => group.value !== selectedGroup.id,
@@ -57,20 +58,13 @@ const DeleteModalContent = ({
             selectedValue={targetGroupId}
             onSelect={setTargetGroupId}
           />
-          <label className={styles.checkboxContainer}>
-            <input
-              type="checkbox"
-              className={styles.checkboxInput}
-              checked={deleteCompletely}
-              onChange={() => setDeleteCompletely(!deleteCompletely)}
-              disabled={!!targetGroupId}
-            />
-            <p
-              className={`${styles.checkboxLabel} ${!!targetGroupId ? styles.disabled : ''}`}
-            >
-              Delete completely
-            </p>
-          </label>
+          <Checkbox
+            label="Delete completely"
+            checked={deleteCompletely}
+            onChange={(chekced) => setDeleteCompletely(chekced)}
+            disabled={!!targetGroupId}
+            id="deletion-checkbox"
+          />
         </div>
       </div>
       <div className={styles.modalFooter}>
