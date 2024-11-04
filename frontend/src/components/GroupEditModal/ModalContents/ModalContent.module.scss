@@ -17,6 +17,10 @@
   gap: 16px;
   width: 100%;
 
+  @media (max-width: 428px) {
+    flex-direction: column;
+  }
+
   button {
     margin: 0px;
     padding: 22.5px 15px;
@@ -28,6 +32,10 @@
     width: 196px;
     font-size: 16px;
     line-height: 19px;
+
+    @media (max-width: 428px) {
+      width: 100%;
+    }
 
     &.save {
       color: #2b2b2b;
