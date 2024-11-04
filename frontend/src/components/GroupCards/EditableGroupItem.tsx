@@ -29,19 +29,6 @@ const getSliceWidth = (imagesAmount: number) => {
   }
 };
 
-const getBackgroundSize = (imagesAmount: number) => {
-  switch (imagesAmount) {
-    case 1:
-      return '100% 100%';
-    case 2:
-      return '200% 100%';
-    case 3:
-      return '300% 100%';
-    default:
-      return '100% 100%';
-  }
-};
-
 const EditableGroupItem = ({
   group,
   allGames,
@@ -53,7 +40,6 @@ const EditableGroupItem = ({
   );
 
   const sliceWidth = getSliceWidth(gameImagesForCover.length);
-  const backgroundSize = getBackgroundSize(gameImagesForCover.length);
 
   return (
     <div className={styles.groupItemContainer}>
@@ -65,7 +51,6 @@ const EditableGroupItem = ({
             style={{
               backgroundImage: `url(${image})`,
               backgroundPosition: `${sliceWidth * index}% 0`,
-              backgroundSize: backgroundSize,
               width: `${sliceWidth}%`,
             }}
           />

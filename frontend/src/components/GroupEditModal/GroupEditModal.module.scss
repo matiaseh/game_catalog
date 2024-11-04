@@ -7,7 +7,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 628px;
-  max-height: calc(100vh - 70px - 150px);
+  max-height: calc(100vh - 70px - 70px);
   overflow: hidden;
   width: 100%;
   background-color: white;
@@ -17,6 +17,14 @@
   transition:
     opacity 0.2s ease-in-out,
     transform 0.2s ease-in-out;
+
+  @media (max-width: 428px) {
+    width: calc(100% - 44px);
+    max-height: calc(100vh - 70px);
+    left: 22px;
+    right: 22px;
+    transform: translate(0, -50%);
+  }
 
   .closeIcon {
     position: absolute;

@@ -3,7 +3,11 @@
   justify-content: center;
   gap: 32px;
   padding: 75px 82px;
-  overflow: hidden;
+
+  @media (max-width: 428px) {
+    flex-direction: column;
+    padding: 32px 24px;
+  }
 }
 
 .groupCard {
@@ -18,6 +22,12 @@
   max-width: 416px;
   flex: 1;
   position: relative;
+
+  @media (max-width: 428px) {
+    width: 100%;
+    flex: unset;
+    height: fit-content;
+  }
 }
 
 .titleContainer {
@@ -50,7 +60,8 @@
 
 .groupItemsContainer {
   display: grid;
-  grid-template-columns: repeat(2, 170px);
+  justify-items: center;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   overflow-y: auto;
   overflow-x: hidden;
   align-content: start;
@@ -65,11 +76,13 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  width: 100%;
 }
 
 .thumbnailContainer {
-  width: 170px;
-  height: 120px;
+  width: 100%;
+  max-width: 170px;
+  aspect-ratio: 170 / 120;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,12 +96,13 @@
 
   .coverImage {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: contain;
   }
 
   .thumbnailSlice {
     height: 100%;
+    background-size: cover;
   }
 }
 
@@ -97,6 +111,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
+  overflow: hidden;
+  width: 100%;
 
   p {
     margin: 0px;
@@ -106,8 +122,10 @@
 }
 
 .groupEditIcons {
+  width: 100%;
   display: flex;
-  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .groupEditIcon {

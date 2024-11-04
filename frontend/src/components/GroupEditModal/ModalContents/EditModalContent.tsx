@@ -95,6 +95,7 @@ const EditModalContent = ({
             selectedGameIds.includes(option.value),
           )}
           styles={customSelectStyles}
+          menuShouldScrollIntoView={true}
         />
       </div>
       <div className={styles.modalFooter}>
