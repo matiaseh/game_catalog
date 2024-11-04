@@ -10,13 +10,25 @@ const GamesList = ({ games, selectedColumns }: GamesListProps) => {
   const columnClass = `columns-${selectedColumns}`;
 
   return (
-    <div className={`${styles.gamesList} ${styles[columnClass]}`}>
-      {games.map((game) => (
-        <div className={styles.gameItem} key={game.id}>
-          <img src={game.cover} alt={game.name} className={styles.gameImage} />
+    <>
+      {games.length <= 0 ? (
+        <div className={styles.emptyList}>
+          <h2>No games found</h2>
         </div>
-      ))}
-    </div>
+      ) : (
+        <div className={`${styles.gamesList} ${styles[columnClass]}`}>
+          {games.map((game) => (
+            <div className={styles.gameItem} key={game.id}>
+              <img
+                src={game.cover}
+                alt={game.name}
+                className={styles.gameImage}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
